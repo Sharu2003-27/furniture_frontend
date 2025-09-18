@@ -1,6 +1,6 @@
     import { Link, useParams } from "react-router-dom";
     import  ProductsContext  from "../contexts/ProductsContext"
-    import { useContext } from "react";
+    import { useContext, useEffect } from "react";
 
     export default function ProductsList() {
 
@@ -20,13 +20,15 @@
         if (checked) {
             setCategories((prev) => [...prev, value])
         } else {
-            setCategories((pre) => pre.filter((category) => category !== value))
+            setCategories((prev) => prev.filter((cat) => cat !== value))
         }
     }
 
-    if (categories.length > 0) {
-        productData = productData.filter((p) => categories === p.category);
-    }
+    useEffect(() => {
+        if(categories){
+            setCategories(categories)
+        }
+    }, [categories])
 
 
     if (rating) {
