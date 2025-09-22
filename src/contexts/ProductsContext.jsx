@@ -12,11 +12,13 @@ export function ProductProvider({ children }) {
     const [categories, setCategories] = useState([])
     const [rating, setRating] = useState()
     const [sortByPrice, setSortByPrice] = useState()
+    const [cart, setCart] = useState([])
+    const [datas, setDatas] = useState("")
     
     return (
         <>
           <ProductsContext.Provider value={{ data, loading, error, price, setPrice, categories, setCategories, 
-            rating, setRating, sortByPrice, setSortByPrice }}>
+            rating, setRating, sortByPrice, setSortByPrice, cart, setCart, datas, setDatas }}>
             { children }
           </ProductsContext.Provider>
         </>

@@ -6,48 +6,64 @@
 
     const { category } = useParams();
     const { data, loading, error, price, setPrice, categories, setCategories, 
-        rating, setRating, sortByPrice, setSortByPrice } = useContext(ProductsContext);
+        rating, setRating, sortByPrice, setSortByPrice, setCart } = useContext(ProductsContext);
 
     let productData = data;
 
+    // filte by price
     if (price) {
         productData = productData.filter((p) => p.productPrice >= price)
     }
 
+    // filte by category
     function handleCategoryChange(event) {
-        const { value, checked } = event.target
+         const { value, checked } = event.target
 
-        if (checked) {
+         if (checked) {
             setCategories((prev) => [...prev, value])
-        } else {
+         } else {
             setCategories((prev) => prev.filter((cat) => cat !== value))
-        }
+         }
     }
 
     useEffect(() => {
-        if(categories){
-            setCategories(categories)
+        if (category) {
+            setCategories(category)
         }
-    }, [categories])
+    }, [category, setCategories])
 
+    if (categories.length > 0 && !categories.includes("All")) {
+      productData = productData.filter((p) =>
+        categories.includes(p.category.toLowerCase())
+      );
+    }
 
+    // filter by rating
     if (rating) {
         productData = productData.filter((p) => p.rating >= Number(rating))
     }
 
+    // filter by sort
     if (sortByPrice === "Low to High") {
     productData = [...productData].sort((a, b) => a.productPrice - b.productPrice);
     } else if (sortByPrice === "High to Low") {
     productData = [...productData].sort((a, b) => b.productPrice - a.productPrice);
     }
 
+    // cart page
+    function addToCart(product) {
+        setCart((prevCart) => [...prevCart], product)
+    }
+
+    // clear filter
     function clearFilters() {
         setPrice("")
         setCategories([])
         setRating("")
         setSortByPrice("")
     }
-        return (
+
+      return (
             <div>
                 <section>
                     <div className="row">
@@ -60,7 +76,7 @@
                                     <u>Clear</u>
                                 </p>
                               </div>
-                            </div>
+                            </div> 
 
                             <div className="py-2">
                              <p className="fs-5"><strong>Price</strong></p>
@@ -83,14 +99,14 @@
                                     </label>
                                     <br />
                                     <label htmlFor="homeDecor">
-                                        <input type="checkbox" id="homeDecor" value="home decor"
-                                          checked={categories.includes("home decor")} 
+                                        <input type="checkbox" id="homeDecor" value="home-decor"
+                                          checked={categories.includes("home-decor")} 
                                           onChange={handleCategoryChange} /> Home Decor
                                     </label>
                                     <br /> 
                                     <label htmlFor="livingRoom"> 
-                                        <input type="checkbox" id="livingRoom" value="living room" 
-                                          checked={categories.includes("living room")}
+                                        <input type="checkbox" id="livingRoom" value="living-room" 
+                                          checked={categories.includes("living-room")}
                                           onChange={handleCategoryChange} /> Living Room
                                     </label> 
                                     <br />
@@ -169,7 +185,7 @@
                                           <p className="card-text">₹{item.productPrice}</p>
                                           <p className="card-text">{item.productDescription}</p>
                                           <Link to="/cart" className="text-decoration-none">
-                                            <button className="btn btn-primary btn-sm">
+                                            <button className="btn btn-primary btn-sm" onClick={() => addToCart()}>
                                                Add to Cart
                                             </button>
                                          </Link>
