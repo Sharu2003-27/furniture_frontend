@@ -52,7 +52,7 @@
 
     // cart page
     function addToCart(product) {
-        setCart((prevCart) => [...prevCart], product)
+        setCart((prevCart) => [...prevCart, product])
     }
 
     // clear filter
@@ -63,7 +63,7 @@
         setSortByPrice("")
     }
 
-      return (
+      return (      
             <div>
                 <section>
                     <div className="row">
@@ -185,7 +185,7 @@
                                           <p className="card-text">₹{item.productPrice}</p>
                                           <p className="card-text">{item.productDescription}</p>
                                           <Link to="/cart" className="text-decoration-none">
-                                            <button className="btn btn-primary btn-sm" onClick={() => addToCart()}>
+                                            <button className="btn btn-primary btn-sm" onClick={() => addToCart(item)}>
                                                Add to Cart
                                             </button>
                                          </Link>
