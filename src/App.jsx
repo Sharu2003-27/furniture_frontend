@@ -5,13 +5,13 @@ import ProductsList from "./pages/ProductsList"
 import WishList from "./pages/WishList"
 import LoginForm from "./pages/LoginForm"
 import Cart from "./pages/Cart"
-import { ProductProvider } from './contexts/ProductsContext'
+import { ProductsProvider } from './contexts/ProductsContext'
 
 export default function App() {
   return (
     <>
       <Nav />
-      <ProductProvider>
+      <ProductsProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/productsList/:category" element={<ProductsList />} />
@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/loginForm" element={<LoginForm />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
-      </ProductProvider>
+      </ProductsProvider>
     </>
   )
 }
