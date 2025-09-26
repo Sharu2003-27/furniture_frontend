@@ -1,10 +1,11 @@
 import { createContext, useState } from "react";
 import useFetch from "../Hooks/useFetch";
+import useLocalStorage from '../Hooks/useLocalStorage'
 
 const ProductsContext = createContext();
 export default ProductsContext;
 
-export function ProductProvider({ children }) {
+export function ProductsProvider({ children }) {
 
     const { data, loading, error } = useFetch("http://localhost:3000/products", [])
 
@@ -12,7 +13,7 @@ export function ProductProvider({ children }) {
     const [categories, setCategories] = useState([])
     const [rating, setRating] = useState()
     const [sortByPrice, setSortByPrice] = useState()
-    const [cart, setCart] = useState([])
+      const [cart, setCart] = useLocalStorage("cart", [])
     const [datas, setDatas] = useState("")
     
     return (

@@ -1,15 +1,9 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import ProductsContext from "../contexts/ProductsContext"
-import useLocalStorage from "../Hooks/useLocalStorage"
+// import useLocalStorage from "../Hooks/useLocalStorage"
 
 export default function Cart() {
   const { cart } = useContext(ProductsContext)
-
-   const [storage, updateStorage] = useLocalStorage("cart", []);
-
-   useEffect(() => {
-    updateStorage(cart)
-   })
 
   const [quantity, setQuantity] = useState(
     cart.reduce((acc, curr) => {
@@ -53,13 +47,13 @@ export default function Cart() {
   return (
     <div>
       <section className="bg-body-secondary" style={{ minHeight: "100vh" }}>
-        <h1 className="text-center p-5">MY CART ({storage.length})</h1>
+        <h1 className="text-center p-5">MY CART ({cart.length})</h1>
 
         <div className="container">
-          {storage && storage.length > 0 ? (
+          {cart && cart.length > 0 ? (
             <div className="row">
               <div className="col-md-8">
-                {storage.map((item) => (
+                {cart.map((item) => (
                   <div key={item._id} className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">

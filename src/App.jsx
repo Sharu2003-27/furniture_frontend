@@ -5,7 +5,7 @@ import ProductsList from "./pages/ProductsList"
 import WishList from "./pages/WishList"
 import LoginForm from "./pages/LoginForm"
 import Cart from "./pages/Cart"
-import { ProductsProvider } from './contexts/ProductsContext'
+import  { ProductsProvider }  from './contexts/ProductsContext'
 
 export default function App() {
   return (

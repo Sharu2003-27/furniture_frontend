@@ -9,7 +9,7 @@
         rating, setRating, sortByPrice, setSortByPrice, setCart } = useContext(ProductsContext);
 
     let productData = data;
-
+        
     // filte by price
     if (price) {
         productData = productData.filter((p) => p.productPrice >= price)
