@@ -15,11 +15,16 @@ export function ProductsProvider({ children }) {
     const [sortByPrice, setSortByPrice] = useState()
     const [cart, setCart] = useLocalStorage("cart", [])
     const [wishlist, setWishlist] = useLocalStorage("wishlist", [])
-    const [datas, setDatas] = useState("")
+    const [addresses, setAddresses] = useLocalStorage("addresses", [])
+    const [selectedAddressId, setSelectedAddressId] = useLocalStorage("selectedAddressId", null)
+    const [orders, setOrders] = useLocalStorage("orders", [])
+    const [alertMessage, setAlertMessage] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
     
     return (
           <ProductsContext.Provider value={{ data, loading, error, price, setPrice, categories, setCategories, 
-            rating, setRating, sortByPrice, setSortByPrice, cart, setCart, wishlist, setWishlist, datas, setDatas }}>
+            rating, setRating, sortByPrice, setSortByPrice, cart, setCart, wishlist, setWishlist, searchTerm, setSearchTerm,
+            addresses, setAddresses, selectedAddressId, setSelectedAddressId, orders, setOrders, alertMessage, setAlertMessage }}>
             { children }
           </ProductsContext.Provider>
     )

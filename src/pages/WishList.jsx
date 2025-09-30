@@ -4,15 +4,23 @@ import ProductsContext from "../contexts/ProductsContext"
 import { Link } from "react-router-dom"
 
 export default function WishList() {
-    const { wishlist, setWishlist, setCart } = useContext(ProductsContext)
+    const { wishlist, setWishlist, setCart, setAlertMessage } = useContext(ProductsContext)
 
     function removeFromWishlist(id) {
         setWishlist((prev) => prev.filter((p) => p._id !== id))
+        setAlertMessage("Removed from wishlist")
     }
 
     function moveToCart(product) {
-        setCart((prev) => [...prev, { ...product, quantity: 1 }])
+        setCart((prev) => {
+          const existing = prev.find((p) => p._id === product._id)
+          if (existing) {
+            return prev.map((p) => p._id === product._id ? { ...p, quantity: (p.quantity || 1) + 1 } : p)
+          }
+          return [...prev, { ...product, quantity: 1 }]
+        })
         removeFromWishlist(product._id)
+        setAlertMessage("Moved to cart")
     }
 
     return (

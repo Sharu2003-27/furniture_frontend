@@ -1,10 +1,9 @@
 import { useContext, useState, useEffect } from "react"
-import ProductsContext from "../contexts/ProductsContext"
-import { Link } from "react-router-dom"
+import ProductsContext from "../contexts/ProductsContext" 
 
 export default function Cart() {
   
-  const { cart, setCart, wishlist, setWishlist } = useContext(ProductsContext)
+  const { cart, setCart, wishlist, setWishlist, setAlertMessage } = useContext(ProductsContext)
 
   const [quantity, setQuantity] = useState(
     cart.reduce((acc, curr) => {
@@ -19,6 +18,10 @@ export default function Cart() {
       quantity: quantity[item._id] || 1
     }))
     setCart(updatedCart)
+    // Inform quantity change
+    if (cart.length > 0) {
+      setAlertMessage("Updated cart quantities")
+    }
   }, [quantity, setCart])
 
   function incrementCounter(id) {
@@ -37,12 +40,24 @@ export default function Cart() {
 
   function removeFromCart(id) {
     setCart((prev) => prev.filter((p) => p._id !== id))
+    setAlertMessage("Removed from cart")
   }
 
   function addToWishlist(product) {
     if (!wishlist.find((p) => p._id === product._id)) {
       setWishlist((prev) => [...prev, product])
     }
+    setAlertMessage("Added to wishlist")
+  }
+
+  function moveToWishlist(productId) {
+    const product = cart.find((p) => p._id === productId)
+    if (!product) return
+    if (!wishlist.find((p) => p._id === product._id)) {
+      setWishlist((prev) => [...prev, product])
+    }
+    removeFromCart(productId)
+    setAlertMessage("Moved to wishlist")
   }
 
   // Calculate total for all items
@@ -124,9 +139,12 @@ export default function Cart() {
                               </button>
                             </div>
                           </div>
-                          <div>
+                          <div className="d-flex gap-2">
                             <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item._id)}>
                               Remove
+                            </button>
+                            <button className="btn btn-outline-secondary btn-sm" onClick={() => moveToWishlist(item._id)}>
+                              Move to Wishlist
                             </button>
                           </div>
                         </div>
@@ -166,7 +184,8 @@ export default function Cart() {
                   <p className="text-success">
                     You will save ₹{totalDiscount.toFixed(2)} on this order.
                   </p>
-                  <button className="btn btn-primary w-100">PLACE ORDER</button>
+                  <a href="/address" className="btn btn-outline-secondary w-100 mb-2">Choose Address</a>
+                  <a href="/checkout" className="btn btn-primary w-100">Checkout</a>
                 </div>
               </div>
             </div>

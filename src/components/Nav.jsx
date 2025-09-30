@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom"
-import { useContext, useMemo } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useContext, useMemo, useState } from "react"
 import ProductsContext from "../contexts/ProductsContext"
 
 export default function Nav() {
 
-    const { wishlist, cart } = useContext(ProductsContext)
+    const { wishlist, cart, searchTerm, setSearchTerm, alertMessage, setAlertMessage } = useContext(ProductsContext)
+    const navigate = useNavigate()
+    const [localSearch, setLocalSearch] = useState(searchTerm || "")
 
     const cartCount = useMemo(() => {
         if (!Array.isArray(cart)) return 0
@@ -13,7 +15,6 @@ export default function Nav() {
 
     return (
         <div>
-           
              <nav className="navbar bg-black border-bottom border-body" data-bs-theme="dark">
                 <div className="container d-flex align-items-center justify-content-between">
                 <Link to="/" className="mb-2 mb-md-0">
@@ -22,14 +23,20 @@ export default function Nav() {
                      style={{ height: "80px", width: "120px" }}
                     />
                 </Link> 
-                <div className="d-flex flex-grow mx-4">
+                <form className="d-flex flex-grow mx-4" onSubmit={(e) => { e.preventDefault(); setSearchTerm(localSearch); navigate(`/productsList/All`) }}>
                    <span className="input-group-text">&#128269;</span>
-                   <input type="text" placeholder="Search" className="form-control"/>
-                </div>
+                   <input type="text" placeholder="Search products" className="form-control" value={localSearch}
+                     onChange={(e) => setLocalSearch(e.target.value)} />
+                </form>
                 <ul className="nav d-flex align-items-center gap-2 gap-md-3 mt-2 mt-md-0">
                   <li className="nav-item">
                     <Link className="text-decoration-none" to="/loginForm">
                        <button className="d-inline p-2 text-bg-dark">Login</button>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="text-decoration-none" to="/profile">
+                       <button className="d-inline p-2 text-bg-dark">Profile</button>
                     </Link>
                   </li>
                   <li className="nav-item d-flex align-items-center position-relative">
@@ -57,6 +64,11 @@ export default function Nav() {
                 </ul>
               </div>
             </nav>
+            {alertMessage && (
+              <div className="alert alert-info text-center m-0" role="alert" onAnimationEnd={() => setAlertMessage("")}> 
+                {alertMessage}
+              </div>
+            )}
         </div>
     )
 }

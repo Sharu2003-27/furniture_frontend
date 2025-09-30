@@ -6,7 +6,7 @@
 
     const { category } = useParams();
     const { data, loading, error, price, setPrice, categories, setCategories, 
-        rating, setRating, sortByPrice, setSortByPrice, setCart, wishlist, setWishlist } = useContext(ProductsContext);
+        rating, setRating, sortByPrice, setSortByPrice, setCart, wishlist, setWishlist, searchTerm, setAlertMessage } = useContext(ProductsContext);
 
     let productData = data;
 
@@ -28,7 +28,12 @@
 
     useEffect(() => {
         if (category) {
-            setCategories(category)
+            // ensure categories is an array and respects "All"
+            if (category === "All") {
+                setCategories(["All"]) 
+            } else {
+                setCategories([category])
+            }
         }
     }, [category, setCategories])
 
@@ -43,6 +48,15 @@
         productData = productData.filter((p) => p.rating >= Number(rating))
     }
 
+    // filter by search term (name or description)
+    if (searchTerm && searchTerm.trim() !== "") {
+        const term = searchTerm.toLowerCase()
+        productData = productData.filter((p) =>
+          (p.productName && p.productName.toLowerCase().includes(term)) ||
+          (p.productDescription && p.productDescription.toLowerCase().includes(term))
+        )
+    }
+
     // filter by sort
     if (sortByPrice === "Low to High") {
     productData = [...productData].sort((a, b) => a.productPrice - b.productPrice);
@@ -52,13 +66,21 @@
 
     // cart page
     function addToCart(product) {
-       setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
+       setCart((prevCart) => {
+         const existing = prevCart.find((p) => p._id === product._id)
+         if (existing) {
+           return prevCart.map((p) => p._id === product._id ? { ...p, quantity: (p.quantity || 1) + 1 } : p)
+         }
+         return [...prevCart, { ...product, quantity: 1 }]
+       });
+       setAlertMessage("Added to cart")
     }
 
     // wishlist
     function addToWishlist(product) {
        if (!wishlist.find((p) => p._id === product._id)) {
          setWishlist((prev) => [...prev, product])
+         setAlertMessage("Added to wishlist")
        }
     }
 
@@ -178,25 +200,29 @@
                         </div>
 
                         <div className="col-md-10 bg-light"> 
-                            <h2 className="mt-4 text-capitalize p-3">{category} Products</h2>
+                            <h2 className="mt-3 text-capitalize px-3">{category} Products</h2>
                             {loading && <p>Loading...</p>}
                             {error && <p>Error...</p>}
                             {productData && productData.length > 0 ? ( 
-                                 <div className="row px-5">
+                                 <div className="row px-3 px-md-4 g-3 g-md-4">
                                     {productData.map((item) => 
-                                    <div className="col-md-3 p-3" key={item._id}>
-                                      <div className="card h-100" style={{ minHeight: "400px" }}>
-                                         <img src={item.productImage} alt={item.productName} />
+                                    <div className="col-6 col-md-4 col-lg-3" key={item._id}>
+                                      <div className="card h-100 shadow-sm border-0">
+                                         <Link to={`/product/${item._id}`}>
+                                           <img src={item.productImage} alt={item.productName} className="img-fluid rounded-top" style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+                                         </Link>
                                       <div className="card-body">
-                                          <h4 className="card-title">{item.productName}</h4>
-                                          <p className="card-text">₹{item.productPrice}</p>
-                                          <p className="card-text">{item.productDescription}</p>
+                                          <Link to={`/product/${item._id}`} className="text-decoration-none">
+                                            <h6 className="card-title text-truncate" title={item.productName}>{item.productName}</h6>
+                                          </Link>
+                                          <p className="card-text mb-2"><strong>₹{item.productPrice}</strong></p>
+                                          <p className="card-text text-muted small" style={{ minHeight: "38px" }}>{item.productDescription?.slice(0, 60)}{item.productDescription && item.productDescription.length > 60 ? '…' : ''}</p>
                                           <Link to="/cart" className="text-decoration-none">
-                                            <button className="btn btn-primary btn-sm" onClick={() => addToCart(item)}>
+                                            <button className="btn btn-primary btn-sm w-100" onClick={() => addToCart(item)}>
                                                Add to Cart
                                             </button>
                                          </Link>
-                                         <button className="btn btn-outline-danger btn-sm ms-2" onClick={() => addToWishlist(item)}>
+                                         <button className="btn btn-outline-danger btn-sm w-100 mt-2" onClick={() => addToWishlist(item)}>
                                            ♥ Wishlist
                                          </button>
                                       </div>
