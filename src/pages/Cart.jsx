@@ -1,9 +1,10 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import ProductsContext from "../contexts/ProductsContext"
-// import useLocalStorage from "../Hooks/useLocalStorage"
+import { Link } from "react-router-dom"
 
 export default function Cart() {
-  const { cart } = useContext(ProductsContext)
+  
+  const { cart, setCart, wishlist, setWishlist } = useContext(ProductsContext)
 
   const [quantity, setQuantity] = useState(
     cart.reduce((acc, curr) => {
@@ -11,6 +12,14 @@ export default function Cart() {
       return acc
     }, {})  
   )
+
+  useEffect(() => {
+    const updatedCart = cart.map(item => ({
+      ...item,
+      quantity: quantity[item._id] || 1
+    }))
+    setCart(updatedCart)
+  }, [quantity, setCart])
 
   function incrementCounter(id) {
     setQuantity((prev) => ({
@@ -24,6 +33,16 @@ export default function Cart() {
       ...prev, 
       [id]: prev[id] > 1 ? prev[id] - 1 : 1
     }))
+  }
+
+  function removeFromCart(id) {
+    setCart((prev) => prev.filter((p) => p._id !== id))
+  }
+
+  function addToWishlist(product) {
+    if (!wishlist.find((p) => p._id === product._id)) {
+      setWishlist((prev) => [...prev, product])
+    }
   }
 
   // Calculate total for all items
@@ -43,7 +62,7 @@ export default function Cart() {
   const totalDiscount = calculateTotalDiscount()
   const deliveryCharges = 299
   const totalAmount = subtotal - totalDiscount + deliveryCharges
-
+ 
   return (
     <div>
       <section className="bg-body-secondary" style={{ minHeight: "100vh" }}>
@@ -54,7 +73,15 @@ export default function Cart() {
             <div className="row">
               <div className="col-md-8">
                 {cart.map((item) => (
-                  <div key={item._id} className="card mb-3">
+                  <div key={item._id} className="card mb-3 position-relative">
+                    <button 
+                      className="btn btn-light position-absolute" 
+                      style={{ top: 8, left: 8 }}
+                      title="Add to wishlist"
+                      onClick={() => addToWishlist(item)}
+                    >
+                      ♥
+                    </button>
                     <div className="row g-0">
                       <div className="col-md-4">
                         <img 
@@ -96,6 +123,11 @@ export default function Cart() {
                                 + 
                               </button>
                             </div>
+                          </div>
+                          <div>
+                            <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item._id)}>
+                              Remove
+                            </button>
                           </div>
                         </div>
                       </div>

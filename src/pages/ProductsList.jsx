@@ -6,10 +6,10 @@
 
     const { category } = useParams();
     const { data, loading, error, price, setPrice, categories, setCategories, 
-        rating, setRating, sortByPrice, setSortByPrice, setCart } = useContext(ProductsContext);
+        rating, setRating, sortByPrice, setSortByPrice, setCart, wishlist, setWishlist } = useContext(ProductsContext);
 
     let productData = data;
-        
+
     // filte by price
     if (price) {
         productData = productData.filter((p) => p.productPrice >= price)
@@ -52,7 +52,14 @@
 
     // cart page
     function addToCart(product) {
-        setCart((prevCart) => [...prevCart, product])
+       setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
+    }
+
+    // wishlist
+    function addToWishlist(product) {
+       if (!wishlist.find((p) => p._id === product._id)) {
+         setWishlist((prev) => [...prev, product])
+       }
     }
 
     // clear filter
@@ -177,7 +184,7 @@
                             {productData && productData.length > 0 ? ( 
                                  <div className="row px-5">
                                     {productData.map((item) => 
-                                    <div className="col-md-3 p-3" key={item.id}>
+                                    <div className="col-md-3 p-3" key={item._id}>
                                       <div className="card h-100" style={{ minHeight: "400px" }}>
                                          <img src={item.productImage} alt={item.productName} />
                                       <div className="card-body">
@@ -189,6 +196,9 @@
                                                Add to Cart
                                             </button>
                                          </Link>
+                                         <button className="btn btn-outline-danger btn-sm ms-2" onClick={() => addToWishlist(item)}>
+                                           ♥ Wishlist
+                                         </button>
                                       </div>
                                       </div>
                                     </div>

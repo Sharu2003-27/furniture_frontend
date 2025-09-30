@@ -10,8 +10,8 @@ import  { ProductsProvider }  from './contexts/ProductsContext'
 export default function App() {
   return (
     <>
-      <Nav />
       <ProductsProvider>
+      <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/productsList/:category" element={<ProductsList />} />
@@ -22,4 +22,4 @@ export default function App() {
       </ProductsProvider>
     </>
   )
-}
+} 
