@@ -1,12 +1,462 @@
-# React + Vite
+# 🛋️ Furniture E-Commerce Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, feature-rich e-commerce web application for furniture shopping built with React, featuring product browsing, cart management, wishlist functionality, and order processing.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18.x-blue)
+![React Router](https://img.shields.io/badge/React_Router-6.x-red)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📋 Table of Contents
 
-## Expanding the ESLint configuration
+- [Features](#-features)
+- [Demo](#-demo)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [API Configuration](#-api-configuration)
+- [Components Overview](#-components-overview)
+- [State Management](#-state-management)
+- [User Flows](#-user-flows)
+- [Browser Compatibility](#-browser-compatibility)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+### 🛍️ Shopping Experience
+- **Product Browsing**: Browse products by categories (Home Decor, Living Room, Kitchen & Dining, Bedroom)
+- **Advanced Filtering**: 
+  - Price range slider (₹500 - ₹250,000)
+  - Category selection (multiple)
+  - Rating filter (1-5 stars)
+  - Price sorting (Low to High / High to Low)
+  - Search by product name or description
+- **Product Details**: Comprehensive product pages with size selection, quantity control, and detailed information
+
+### 🛒 Cart & Checkout
+- **Shopping Cart**: 
+  - Add/remove items
+  - Quantity management with +/- controls
+  - Real-time price calculations
+  - Move items between cart and wishlist
+  - Persistent cart data (survives page refresh)
+- **Order Processing**:
+  - Address management (add, edit, delete, select)
+  - Order review before placement
+  - Order history tracking
+  - Price breakdown (subtotal, discount, delivery charges)
+
+### ❤️ Wishlist
+- Save products for later
+- Move items to cart
+- Persistent storage across sessions
+
+### 👤 User Features
+- User profile page
+- Order history with detailed item breakdown
+- Multiple delivery address management
+- Login/Authentication UI
+
+### 💾 Data Persistence
+All user data is persisted using localStorage:
+- Shopping cart items (with quantities and sizes)
+- Wishlist items
+- Saved delivery addresses
+- Selected address for checkout
+- Complete order history
+
+## 🎬 Demo
+
+### Key Pages
+1. **Home** (`/`) - Landing page with category navigation and promotional banners
+2. **Products List** (`/productsList/:category`) - Product browsing with filters
+3. **Product Details** (`/product/:id`) - Detailed product view with purchase options
+4. **Cart** (`/cart`) - Shopping cart with quantity controls
+5. **Wishlist** (`/wishList`) - Saved items
+6. **Address** (`/address`) - Manage delivery addresses
+7. **Checkout** (`/checkout`) - Order review and placement
+8. **Profile** (`/profile`) - User profile and order history
+9. **Login** (`/loginForm`) - Authentication page
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: React 18.x
+- **Routing**: React Router DOM 6.x
+- **Styling**: Bootstrap 5.x + Custom CSS
+- **State Management**: React Context API
+- **Data Fetching**: Fetch API with custom hooks
+- **Storage**: Browser localStorage
+- **Build Tool**: Vite
+
+## 📁 Project Structure
+
+```
+furniture-store/
+├── src/
+│   ├── components/
+│   │   └── Nav.jsx                    # Navigation bar
+│   ├── contexts/
+│   │   └── ProductsContext.jsx        # Global state management
+│   ├── Hooks/
+│   │   ├── useFetch.jsx               # Custom data fetching hook
+│   │   └── useLocalStorage.jsx        # Custom localStorage hook
+│   ├── pages/
+│   │   ├── Home.jsx                   # Landing page
+│   │   ├── ProductsList.jsx           # Products with filters
+│   │   ├── ProductDetails.jsx         # Individual product view
+│   │   ├── Cart.jsx                   # Shopping cart
+│   │   ├── WishList.jsx               # Saved items
+│   │   ├── Address.jsx                # Address management
+│   │   ├── Checkout.jsx               # Order checkout
+│   │   ├── Profile.jsx                # User profile & orders
+│   │   └── LoginForm.jsx              # Authentication
+│   ├── App.jsx                        # Main app component with routes
+│   ├── main.jsx                       # Application entry point
+│   └── index.css                      # Global styles
+└── package.json
+```
+
+## 🚀 Installation
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Steps
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/furniture-store.git
+cd furniture-store
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Set up the backend API**
+The app expects a REST API running at `http://localhost:3000/products`. You can:
+- Use a mock API server like `json-server`
+- Set up your own backend
+- Modify the API URL in `src/contexts/ProductsContext.jsx`
+
+**Example with json-server:**
+```bash
+# Install json-server globally
+npm install -g json-server
+
+# Create a db.json file with your products data
+# Start the server
+json-server --watch db.json --port 3000
+```
+
+4. **Start the development server**
+```bash
+npm run dev
+```
+
+5. **Open your browser**
+Navigate to `http://localhost:5173` (or the port shown in terminal)
+
+## 📖 Usage
+
+### Adding Products to Cart
+1. Browse products on the home page or products list
+2. Click on a product to view details
+3. Select a size (S/M/L/XL)
+4. Choose quantity
+5. Click "Add to Cart" or "Buy Now"
+
+### Managing Cart
+- Adjust quantities using +/- buttons
+- Remove items with "Remove" button
+- Move items to wishlist for later
+- View price breakdown in the sidebar
+- Proceed to checkout
+
+### Placing an Order
+1. Add items to cart
+2. Click "Choose Address" or go to Address page
+3. Add/select a delivery address
+4. Go to Checkout page
+5. Review order details
+6. Click "Place Order"
+7. View order in Profile page
+
+### Using Filters
+- **Price**: Drag the slider to set minimum price
+- **Category**: Check multiple categories or select "All"
+- **Rating**: Select minimum star rating
+- **Sort**: Choose price sorting order
+- **Search**: Type in the search bar to find products
+- **Clear**: Reset all filters with the "Clear" button
+
+## 🔌 API Configuration
+
+### Expected API Response Format
+
+### Modifying API Endpoint
+
+Edit `src/contexts/ProductsContext.jsx`:
+```javascript
+const { data, loading, error } = useFetch("YOUR_API_URL_HERE", [])
+```
+
+## 🧩 Components Overview
+
+### Custom Hooks
+
+#### `useFetch(url, initialData)`
+Handles data fetching with loading and error states.
+
+**Returns:**
+- `data`: Fetched data
+- `loading`: Boolean loading state
+- `error`: Error message (if any)
+
+#### `useLocalStorage(key, initialValue)`
+Manages persistent state with localStorage.
+
+**Returns:**
+- `storage`: Current value
+- `updateStorage`: Update function
+- `removeStorage`: Clear function
+
+### Context Provider
+
+#### `ProductsProvider`
+Global state management for:
+- Product data
+- Cart items
+- Wishlist items
+- Filters (price, category, rating, sort)
+- Search term
+- Addresses
+- Orders
+- Alert messages
+
+### Pages
+
+#### `Home`
+- Category navigation cards
+- Promotional banners
+- Seasonal collections
+
+#### `ProductsList`
+- Product grid with cards
+- Sidebar with filters:
+  - Price range slider
+  - Category checkboxes
+  - Rating radio buttons
+  - Sort options
+  - Clear filters button
+- Search functionality
+- Add to cart/wishlist from cards
+
+#### `ProductDetails`
+- Large product image with wishlist button
+- Product information (name, price, description)
+- Size selection (S/M/L/XL)
+- Quantity selector
+- Add to cart / Buy now buttons
+- Payment & delivery information
+- Return policy
+
+#### `Cart`
+- List of cart items with images
+- Quantity controls per item
+- Remove/Move to wishlist options
+- Price details sidebar:
+  - Subtotal
+  - Discount (50% off)
+  - Delivery charges (₹299)
+  - Total amount
+- Checkout button
+
+#### `WishList`
+- Grid of saved items
+- Remove from wishlist
+- Move to cart
+- Empty state message
+
+#### `Address`
+- Form to add/edit addresses
+- List of saved addresses
+- Select/Edit/Delete actions
+- Visual indicator for selected address
+
+#### `Checkout`
+- Selected delivery address display
+- Order summary with items
+- Price breakdown
+- Place order button
+- Validation (requires address & items)
+
+#### `Profile`
+- User information card
+- Order history with:
+  - Order ID & timestamp
+  - Item details with quantities
+  - Total amount
+- Manage addresses button
+
+#### `LoginForm`
+- Email/password inputs
+- Form validation
+- Show/hide password toggle
+- Back to home link
+
+### Navigation (`Nav`)
+- Logo (links to home)
+- Search bar
+- Login button
+- Profile button
+- Wishlist icon with count badge
+- Cart icon with count badge
+- Alert message display
+
+## 🗄️ State Management
+
+### Global State (Context)
+
+### LocalStorage Keys
+- `cart` - Shopping cart items
+- `wishlist` - Saved items
+- `addresses` - Delivery addresses
+- `selectedAddressId` - Active address
+- `orders` - Order history
+
+## 🔄 User Flows
+
+### Complete Shopping Flow
+```
+Home 
+  → Select Category 
+  → Browse Products (with filters)
+  → View Product Details
+  → Select Size & Quantity
+  → Add to Cart
+  → View Cart
+  → Choose/Add Address
+  → Review Checkout
+  → Place Order
+  → View in Profile
+```
+
+### Wishlist Flow
+```
+Product List/Details
+  → Add to Wishlist
+  → View Wishlist
+  → Move to Cart (optional)
+  → Continue Shopping or Checkout
+```
+
+### Address Management Flow
+```
+Checkout (no address)
+  → Add Address Page
+  → Fill Address Form
+  → Save Address
+  → Select Address
+  → Back to Checkout
+  → Place Order
+```
+
+## 🎨 Features in Detail
+
+### Price Calculations
+
+**Discount Model**: 50% off all products
+```javascript
+originalPrice = productPrice × 2
+discount = originalPrice - productPrice
+```
+
+**Cart Total**:
+```javascript
+subtotal = Σ(productPrice × quantity)
+discount = subtotal × 0.5
+delivery = ₹299 (if cart not empty)
+total = subtotal - discount + delivery
+```
+
+### Filtering Logic Priority
+
+1. Search term (filters by name/description)
+2. Category filter
+3. Price filter (minimum)
+4. Rating filter (minimum)
+5. Sort by price (Low to High / High to Low)
+
+### Alert System
+
+Temporary notifications for user actions:
+- "Added to cart"
+- "Added to wishlist"
+- "Moved to wishlist"
+- "Removed from cart"
+- "Removed from wishlist"
+- "Updated cart quantities"
+
+Auto-dismisses after CSS animation completes.
+
+## 🌐 Browser Compatibility
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+**Note**: Requires localStorage support
+
+## 🐛 Known Limitations
+
+1. **Authentication**: Login is UI-only, no actual authentication implemented
+2. **Payment**: No payment gateway integration
+3. **API**: Requires external API server (not included)
+4. **User Data**: Profile data is hardcoded
+5. **Images**: Product images loaded from URLs (no upload feature)
+
+## 🔮 Future Enhancements
+
+- [ ] Real authentication with JWT
+- [ ] Payment gateway integration
+- [ ] User reviews and ratings
+- [ ] Product recommendations
+- [ ] Order tracking
+- [ ] Email notifications
+- [ ] Admin dashboard
+- [ ] Product image upload
+- [ ] Coupon/Promo codes
+- [ ] Multiple payment methods
+- [ ] Guest checkout
+- [ ] Social login
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👨‍💻 Author
+
+Your Name
+- GitHub: [@yourusername](https://github.com/yourusername)
+- Email: your.email@example.com
+
+## 🙏 Acknowledgments
+
+- Bootstrap for UI components
+- React team for the amazing framework
+- Open source community
