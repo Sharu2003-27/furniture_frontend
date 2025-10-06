@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginForm() {
     const navigate = useNavigate()
@@ -30,8 +30,7 @@ export default function LoginForm() {
                 <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                     <div className="card shadow-sm border-0">
                         <div className="card-body p-4 p-md-5">
-                            <h3 className="mb-1 text-center">Welcome back</h3>
-                            <p className="text-muted text-center mb-4">Login to continue</p>
+                            <h3 className="text-muted text-center mb-4">Login to Continue</h3>
                             <form onSubmit={handleSubmit} noValidate>
                                 <div className="mb-3">
                                     <label className="form-label">Email</label>
@@ -66,9 +65,6 @@ export default function LoginForm() {
                                 </div>
                                 <button type="submit" className="btn btn-primary w-100">Login</button>
                             </form>
-                            <div className="text-center mt-3">
-                                <Link to="/" className="text-decoration-none">Back to Home</Link>
-                            </div>
                         </div>
                     </div>
                 </div>

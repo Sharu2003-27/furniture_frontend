@@ -4,7 +4,7 @@ import ProductsContext from "../contexts/ProductsContext"
 
 export default function Profile() {
   const { orders } = useContext(ProductsContext)
-  const user = { name: "John Doe", email: "john@example.com", phone: "+91 98765 43210" }
+  
 
   return (
     <div className="container py-4">
@@ -12,9 +12,6 @@ export default function Profile() {
         <div className="col-md-4">
           <div className="card p-3">
             <h4>Profile</h4>
-            <div><strong>Name:</strong> {user.name}</div>
-            <div><strong>Email:</strong> {user.email}</div>
-            <div><strong>Phone:</strong> {user.phone}</div>
             <Link to="/address" className="btn btn-primary btn-sm mt-2">Manage Addresses</Link>
           </div>
         </div>
