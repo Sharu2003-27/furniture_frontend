@@ -20,7 +20,6 @@ export default function LoginForm() {
     function handleSubmit(e) {
         e.preventDefault()
         if (!validate()) return
-        // Fake login success
         navigate("/")
     }
 

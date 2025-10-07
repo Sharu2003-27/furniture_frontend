@@ -18,7 +18,6 @@ export default function Cart() {
       quantity: quantity[item._id] || 1
     }))
     setCart(updatedCart)
-    // Inform quantity change
     if (cart.length > 0) {
       setAlertMessage("Updated cart quantities")
     }

@@ -10,12 +10,10 @@
 
     let productData = data;
 
-    // filte by price
     if (price) {
         productData = productData.filter((p) => p.productPrice >= price)
     }
 
-    // filte by category
     function handleCategoryChange(event) {
          const { value, checked } = event.target
 
@@ -43,12 +41,11 @@
       );
     }
 
-    // filter by rating
+
     if (rating) {
         productData = productData.filter((p) => p.rating >= Number(rating))
     }
 
-    // filter by search term (name or description)
     if (searchTerm && searchTerm.trim() !== "") {
         const term = searchTerm.toLowerCase()
         productData = productData.filter((p) =>
@@ -57,14 +54,12 @@
         )
     }
 
-    // filter by sort
     if (sortByPrice === "Low to High") {
     productData = [...productData].sort((a, b) => a.productPrice - b.productPrice);
     } else if (sortByPrice === "High to Low") {
     productData = [...productData].sort((a, b) => b.productPrice - a.productPrice);
     }
 
-    // cart page
     function addToCart(product) {
        setCart((prevCart) => {
          const existing = prevCart.find((p) => p._id === product._id)
@@ -76,7 +71,6 @@
        setAlertMessage("Added to cart")
     }
 
-    // wishlist
     function addToWishlist(product) {
        if (!wishlist.find((p) => p._id === product._id)) {
          setWishlist((prev) => [...prev, product])
@@ -84,7 +78,6 @@
        }
     }
 
-    // clear filter
     function clearFilters() {
         setPrice("")
         setCategories([])
@@ -236,8 +229,7 @@
                           }
                         </div>
                     </div>
-                </section>
-                            
+                </section>               
            </div>
         )
     }

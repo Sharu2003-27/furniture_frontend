@@ -7,7 +7,7 @@ export default ProductsContext;
 
 export function ProductsProvider({ children }) {
  
-    const { data, loading, error } = useFetch("http://localhost:3000/products", [])
+    const { data, loading, error } = useFetch("https://furniture-backend-rho.vercel.app/products", [])
 
     const [price, setPrice] = useState("")
     const [categories, setCategories] = useState([])
