@@ -81,7 +81,6 @@ export default function Address() {
       <h2>My Addresses</h2>
       
       <div className="row">
-        {/* LEFT SIDE: Form to add/edit address */}
         <div className="col-md-6">
           <form onSubmit={saveAddress} className="card p-3 mb-3">
             <h5>{form.id ? "Update Address" : "Add New Address"}</h5>

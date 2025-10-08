@@ -16,14 +16,13 @@ export default function useLocalStorage(key, initialValue) {
 
     const updateStorage = useCallback((newValue) => {
         try {
-            // Handle function updates (like setState)
             const valueToStore = typeof newValue === 'function' ? newValue(storage) : newValue
             setStorage(valueToStore)
             localStorage.setItem(key, JSON.stringify(valueToStore))
         } catch (error) {
            console.error("Error in updating data from localStorage", error) 
         }
-    }, [key])
+    }, [key, storage])
 
     const removeStorage = useCallback(() => {
         try {

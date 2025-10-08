@@ -13,15 +13,11 @@ export default function Cart() {
   )
 
   useEffect(() => {
-    const updatedCart = cart.map(item => ({
-      ...item,
-      quantity: quantity[item._id] || 1
-    }))
-    setCart(updatedCart)
-    if (cart.length > 0) {
-      setAlertMessage("Updated cart quantities")
-    }
-  }, [quantity, setCart])
+  if (cart.length > 0) {
+    setAlertMessage("Updated cart quantities")
+  }
+}, [quantity])
+
 
   function incrementCounter(id) {
     setQuantity((prev) => ({
@@ -42,14 +38,7 @@ export default function Cart() {
     setAlertMessage("Removed from cart")
   }
 
-  function addToWishlist(product) {
-    if (!wishlist.find((p) => p._id === product._id)) {
-      setWishlist((prev) => [...prev, product])
-    }
-    setAlertMessage("Added to wishlist")
-  }
-
-  function moveToWishlist(productId) {
+    function moveToWishlist(productId) {
     const product = cart.find((p) => p._id === productId)
     if (!product) return
     if (!wishlist.find((p) => p._id === product._id)) {
@@ -59,7 +48,13 @@ export default function Cart() {
     setAlertMessage("Moved to wishlist")
   }
 
-  // Calculate total for all items
+  function addToWishlist(product) {
+    if (!wishlist.find((p) => p._id === product._id)) {
+      setWishlist((prev) => [...prev, product])
+    }
+    setAlertMessage("Added to wishlist")
+  }
+
   const calculateSubtotal = () => {
     return cart.reduce((total, item) => {
       return total + (item.productPrice * quantity[item._id])
@@ -142,7 +137,7 @@ export default function Cart() {
                             <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item._id)}>
                               Remove
                             </button>
-                            <button className="btn btn-outline-secondary btn-sm" onClick={() => moveToWishlist(item._id)}>
+                            <button className="btn btn-outline-primary btn-sm" onClick={() => moveToWishlist(item._id)}>
                               Move to Wishlist
                             </button>
                           </div>
