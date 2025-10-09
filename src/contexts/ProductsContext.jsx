@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import useFetch from "../Hooks/useFetch";
 import useLocalStorage from '../Hooks/useLocalStorage'
 
@@ -20,7 +20,13 @@ export function ProductsProvider({ children }) {
     const [orders, setOrders] = useLocalStorage("orders", [])
     const [alertMessage, setAlertMessage] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
-    
+    // auto-dismiss alerts
+    useEffect(() => {
+      if (!alertMessage) return
+      const timer = setTimeout(() => setAlertMessage(""), 2500)
+      return () => clearTimeout(timer)
+    }, [alertMessage])
+
     return (
           <ProductsContext.Provider value={{ data, loading, error, price, setPrice, categories, setCategories, 
             rating, setRating, sortByPrice, setSortByPrice, cart, setCart, wishlist, setWishlist, searchTerm, setSearchTerm,

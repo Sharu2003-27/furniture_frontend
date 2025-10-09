@@ -1,9 +1,11 @@
 import { useContext, useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import ProductsContext from "../contexts/ProductsContext" 
 
 export default function Cart() {
   
-  const { cart, setCart, wishlist, setWishlist, setAlertMessage } = useContext(ProductsContext)
+  const { cart, setCart, wishlist, setWishlist, setAlertMessage, selectedAddressId } = useContext(ProductsContext)
+  const navigate = useNavigate()
 
   const [quantity, setQuantity] = useState(
     cart.reduce((acc, curr) => {
@@ -71,6 +73,14 @@ export default function Cart() {
   const totalDiscount = calculateTotalDiscount()
   const deliveryCharges = 299
   const totalAmount = subtotal - totalDiscount + deliveryCharges
+
+  function handleCheckoutClick(e) {
+    if (!selectedAddressId) {
+      e.preventDefault()
+      setAlertMessage("Please select an address before checkout")
+      navigate("/address")
+    }
+  }
  
   return (
     <div>
@@ -178,8 +188,8 @@ export default function Cart() {
                   <p className="text-success">
                     You will save ₹{totalDiscount.toFixed(2)} on this order.
                   </p>
-                  <a href="/address" className="btn btn-outline-secondary w-100 mb-2">Choose Address</a>
-                  <a href="/checkout" className="btn btn-primary w-100">Checkout</a>
+                  <Link to="/address" className="btn btn-outline-secondary w-100 mb-2">Choose Address</Link>
+                  <Link to="/checkout" className="btn btn-primary w-100" onClick={handleCheckoutClick}>Checkout</Link>
                 </div>
               </div>
             </div>

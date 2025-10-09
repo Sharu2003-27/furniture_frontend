@@ -6,7 +6,8 @@ export default function Address() {
     addresses, 
     setAddresses, 
     selectedAddressId, 
-    setSelectedAddressId 
+    setSelectedAddressId, 
+    setAlertMessage
   } = useContext(ProductsContext)
 
   const [form, setForm] = useState({
@@ -37,6 +38,7 @@ export default function Address() {
     e.preventDefault() 
 
     if (!form.name || !form.phone || !form.line1 || !form.city || !form.state || !form.zip) {
+      setAlertMessage("Please fill all required address fields")
       return 
     }
     
@@ -48,12 +50,14 @@ export default function Address() {
         return address 
       })
       setAddresses(updatedAddresses)
+      setAlertMessage("Address updated")
     } 
    
     else {
       const newId = Date.now().toString() 
       const newAddress = { ...form, id: newId }
       setAddresses([...addresses, newAddress]) 
+      setAlertMessage("Address added")
     }
     
     resetForm() 
@@ -70,10 +74,12 @@ export default function Address() {
     if (selectedAddressId === id) {
       setSelectedAddressId(null)
     }
+    setAlertMessage("Address deleted")
   }
 
   function selectAddress(id) {
     setSelectedAddressId(id)
+    setAlertMessage("Address selected")
   }
 
   return (
