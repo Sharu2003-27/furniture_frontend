@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import ProductsContext from "../contexts/ProductsContext"
+import { Link } from "react-router-dom"
 
 export default function Address() {
   const { 
@@ -170,12 +171,11 @@ export default function Address() {
                     </div>
                     
                     <div className="d-flex flex-column gap-2">
-                      <button 
+                      <Link 
                         className="btn btn-outline-primary btn-sm" 
                         onClick={() => selectAddress(address.id)}
-                      >
-                        Select
-                      </button>
+                        to="/checkout">Select</Link>
+                        
                       <button 
                         className="btn btn-outline-secondary btn-sm" 
                         onClick={() => editAddress(address)}
