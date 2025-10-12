@@ -98,49 +98,6 @@ furniture-store/
 └── package.json
 ```
 
-## 🚀 Installation
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Steps
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/furniture-store.git
-cd furniture-store
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Set up the backend API**
-The app expects a REST API running at `http://localhost:3000/products`. You can:
-- Use a mock API server like `json-server`
-- Set up your own backend
-- Modify the API URL in `src/contexts/ProductsContext.jsx`
-
-**Example with json-server:**
-```bash
-# Install json-server globally
-npm install -g json-server
-
-# Create a db.json file with your products data
-# Start the server
-json-server --watch db.json --port 3000
-```
-
-4. **Start the development server**
-```bash
-npm run dev
-```
-
-5. **Open your browser**
-Navigate to `http://localhost:5173` (or the port shown in terminal)
-
 ## 📖 Usage
 
 ### Adding Products to Cart
@@ -367,5 +324,3 @@ Temporary notifications for user actions:
 - "Updated cart quantities"
 
 Auto-dismisses after CSS animation completes.
-
-
