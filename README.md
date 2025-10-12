@@ -1,26 +1,7 @@
-# 🛋️ Furniture E-Commerce Store
+# 🛋️ Furniture E-Commerce Website
 
-A modern, feature-rich e-commerce web application for furniture shopping built with React, featuring product browsing, cart management, wishlist functionality, and order processing.
-
-![React](https://img.shields.io/badge/React-18.x-blue)
-![React Router](https://img.shields.io/badge/React_Router-6.x-red)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple)
-
-## 📋 Table of Contents
-
-- [Features](#-features)
-- [Demo](#-demo)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [API Configuration](#-api-configuration)
-- [Components Overview](#-components-overview)
-- [State Management](#-state-management)
-- [User Flows](#-user-flows)
-- [Browser Compatibility](#-browser-compatibility)
-- [Contributing](#-contributing)
-- [License](#-license)
+A full-stack eCommerce platform built using the MERN stack (MongoDB, Express.js, React.js, Node.js).
+The application allows users to browse products, apply filters, manage wishlists and carts, handle addresses, complete checkouts, and manage user profiles.
 
 ## ✨ Features
 
@@ -367,22 +348,6 @@ Checkout (no address)
 
 ## 🎨 Features in Detail
 
-### Price Calculations
-
-**Discount Model**: 50% off all products
-```javascript
-originalPrice = productPrice × 2
-discount = originalPrice - productPrice
-```
-
-**Cart Total**:
-```javascript
-subtotal = Σ(productPrice × quantity)
-discount = subtotal × 0.5
-delivery = ₹299 (if cart not empty)
-total = subtotal - discount + delivery
-```
-
 ### Filtering Logic Priority
 
 1. Search term (filters by name/description)
@@ -403,60 +368,4 @@ Temporary notifications for user actions:
 
 Auto-dismisses after CSS animation completes.
 
-## 🌐 Browser Compatibility
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-**Note**: Requires localStorage support
-
-## 🐛 Known Limitations
-
-1. **Authentication**: Login is UI-only, no actual authentication implemented
-2. **Payment**: No payment gateway integration
-3. **API**: Requires external API server (not included)
-4. **User Data**: Profile data is hardcoded
-5. **Images**: Product images loaded from URLs (no upload feature)
-
-## 🔮 Future Enhancements
-
-- [ ] Real authentication with JWT
-- [ ] Payment gateway integration
-- [ ] User reviews and ratings
-- [ ] Product recommendations
-- [ ] Order tracking
-- [ ] Email notifications
-- [ ] Admin dashboard
-- [ ] Product image upload
-- [ ] Coupon/Promo codes
-- [ ] Multiple payment methods
-- [ ] Guest checkout
-- [ ] Social login
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Author
-
-Your Name
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-
-## 🙏 Acknowledgments
-
-- Bootstrap for UI components
-- React team for the amazing framework
-- Open source community
