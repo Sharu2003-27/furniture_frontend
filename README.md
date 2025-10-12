@@ -47,8 +47,6 @@ All user data is persisted using localStorage:
 - Selected address for checkout
 - Complete order history
 
-## 🎬 Demo
-
 ### Key Pages
 1. **Home** (`/`) - Landing page with category navigation and promotional banners
 2. **Products List** (`/productsList/:category`) - Product browsing with filters
