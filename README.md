@@ -1,26 +1,7 @@
-# 🛋️ Furniture E-Commerce Store
+# 🛋️ Furniture E-Commerce Website
 
-A modern, feature-rich e-commerce web application for furniture shopping built with React, featuring product browsing, cart management, wishlist functionality, and order processing.
-
-![React](https://img.shields.io/badge/React-18.x-blue)
-![React Router](https://img.shields.io/badge/React_Router-6.x-red)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple)
-
-## 📋 Table of Contents
-
-- [Features](#-features)
-- [Demo](#-demo)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [API Configuration](#-api-configuration)
-- [Components Overview](#-components-overview)
-- [State Management](#-state-management)
-- [User Flows](#-user-flows)
-- [Browser Compatibility](#-browser-compatibility)
-- [Contributing](#-contributing)
-- [License](#-license)
+A full-stack eCommerce platform built using the MERN stack (MongoDB, Express.js, React.js, Node.js).
+The application allows users to browse products, apply filters, manage wishlists and carts, handle addresses, complete checkouts, and manage user profiles.
 
 ## ✨ Features
 
@@ -65,8 +46,6 @@ All user data is persisted using localStorage:
 - Saved delivery addresses
 - Selected address for checkout
 - Complete order history
-
-## 🎬 Demo
 
 ### Key Pages
 1. **Home** (`/`) - Landing page with category navigation and promotional banners
@@ -116,49 +95,6 @@ furniture-store/
 │   └── index.css                      # Global styles
 └── package.json
 ```
-
-## 🚀 Installation
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Steps
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/furniture-store.git
-cd furniture-store
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Set up the backend API**
-The app expects a REST API running at `http://localhost:3000/products`. You can:
-- Use a mock API server like `json-server`
-- Set up your own backend
-- Modify the API URL in `src/contexts/ProductsContext.jsx`
-
-**Example with json-server:**
-```bash
-# Install json-server globally
-npm install -g json-server
-
-# Create a db.json file with your products data
-# Start the server
-json-server --watch db.json --port 3000
-```
-
-4. **Start the development server**
-```bash
-npm run dev
-```
-
-5. **Open your browser**
-Navigate to `http://localhost:5173` (or the port shown in terminal)
 
 ## 📖 Usage
 
@@ -367,22 +303,6 @@ Checkout (no address)
 
 ## 🎨 Features in Detail
 
-### Price Calculations
-
-**Discount Model**: 50% off all products
-```javascript
-originalPrice = productPrice × 2
-discount = originalPrice - productPrice
-```
-
-**Cart Total**:
-```javascript
-subtotal = Σ(productPrice × quantity)
-discount = subtotal × 0.5
-delivery = ₹299 (if cart not empty)
-total = subtotal - discount + delivery
-```
-
 ### Filtering Logic Priority
 
 1. Search term (filters by name/description)
@@ -402,61 +322,3 @@ Temporary notifications for user actions:
 - "Updated cart quantities"
 
 Auto-dismisses after CSS animation completes.
-
-## 🌐 Browser Compatibility
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-**Note**: Requires localStorage support
-
-## 🐛 Known Limitations
-
-1. **Authentication**: Login is UI-only, no actual authentication implemented
-2. **Payment**: No payment gateway integration
-3. **API**: Requires external API server (not included)
-4. **User Data**: Profile data is hardcoded
-5. **Images**: Product images loaded from URLs (no upload feature)
-
-## 🔮 Future Enhancements
-
-- [ ] Real authentication with JWT
-- [ ] Payment gateway integration
-- [ ] User reviews and ratings
-- [ ] Product recommendations
-- [ ] Order tracking
-- [ ] Email notifications
-- [ ] Admin dashboard
-- [ ] Product image upload
-- [ ] Coupon/Promo codes
-- [ ] Multiple payment methods
-- [ ] Guest checkout
-- [ ] Social login
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Author
-
-Your Name
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-
-## 🙏 Acknowledgments
-
-- Bootstrap for UI components
-- React team for the amazing framework
-- Open source community
