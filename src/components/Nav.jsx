@@ -22,7 +22,7 @@ export default function Nav() {
     <div>
       <nav className="navbar bg-black border-bottom border-body text-light" data-bs-theme="dark">
         <div
-          className="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-2 px-3"
+          className="container-fluid d-flex flex-column flex-md-row align-items-start justify-content-between py-3 px-4"
           style={{ minHeight: "80px" }}>
           <Link to="/" className="d-flex align-items-center justify-content-center mb-2 mb-md-0">
             <img
@@ -35,7 +35,7 @@ export default function Nav() {
 
           <div
             onSubmit={handleSearch}
-            className="d-flex align-items-center w-100 justify-content-center mb-2 mb-md-0"
+            className="d-flex align-items-center w-100 justify-content-center mb-2 mb-md-0 p-2"
             style={{ maxWidth: "400px" }}
           >
             <span className="input-group-text border-0 rounded-start">
@@ -50,11 +50,11 @@ export default function Nav() {
             />
           </div>
 
-          <ul className="nav d-flex align-items-center justify-content-center gap-3 mt-2 mt-md-0">
+          <ul className="nav d-flex align-items-center justify-content-center gap-4 mt-2 mt-md-0 p-2">
             <li className="nav-item">
               <Link className="text-decoration-none" to="/profile">
                 <button
-                  className="btn btn-outline-light btn-sm px-3 py-1"
+                  className="btn btn-outline-light btn-sm px-3 py-2"
                   style={{ fontSize: "0.9rem" }}
                 >
                   Profile
