@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import ProductsContext from "../contexts/ProductsContext"
 
 export default function Checkout() {
-  const { cart, setCart, addresses, selectedAddressId, orders, setOrders, alertMessage, setAlertMessage } = useContext(ProductsContext)
+  const { cart, setCart, addresses, selectedAddressId, orders, setOrders, setAlertMessage } = useContext(ProductsContext)
   const navigate = useNavigate()
 
   const selectedAddress = useMemo(() => addresses.find(a => a.id === selectedAddressId), [addresses, selectedAddressId])
